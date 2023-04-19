@@ -1,0 +1,11 @@
+def afundados(frota, tabuleiro):
+    total_afundados = 0
+    for barco, cordenadas_geral in frota.items():
+        for cordenada_umbarco in cordenadas_geral:
+            afundo = 0
+            for posicao in cordenada_umbarco:
+                if tabuleiro[posicao[0]][posicao[1]] == 'X':
+                    afundo += 1
+                if afundo == len(cordenada_umbarco):
+                    total_afundados += 1
+    return total_afundados

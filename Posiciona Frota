@@ -1,8 +1,8 @@
-def posiciona_frota(p):
+def posiciona_frota(frota):
     l = [[],[],[],[],[],[],[],[],[],[]]
     for i in range(10):
         l[i] += [0 for x in range(10)]
-    for barco, cordenadas_geral in p.items():
+    for barco, cordenadas_geral in frota.items():
         for cordenada_umbarco in cordenadas_geral:
             for posicao in cordenada_umbarco:
                 for T in range(10):

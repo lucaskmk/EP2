@@ -1,0 +1,18 @@
+def posicao_valida(frota, linha, coluna, orientacao, tamanho):
+    validacao = []
+    for i in range(tamanho):
+        if orientacao == 'vertical':
+            validacao.append([(linha+i), coluna])
+            if (linha+i) > 9:
+                return False
+        if orientacao == 'horizontal':
+            validacao.append([linha, (coluna+i)])
+            if (coluna+i) > 9:
+                return False
+    for barco, cordenadas_geral in frota.items():
+        for cordenada_umbarco in cordenadas_geral:
+            for posicao in cordenada_umbarco:
+                for itemvalido in validacao:
+                    if itemvalido == [posicao[0],posicao[1]]:
+                        return False
+    return True

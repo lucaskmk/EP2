@@ -4,34 +4,19 @@ frota = {
     "contratorpedeiro":[],
     "submarino": [],
 }
-
-def parametros(frota, tamanho, navios):
-    
-    orientacao = ''
-    linha = int(input('Linha: '))
-    coluna = int(input('Coluna: '))
-    if tamanho < 1 :
-        start = input('[1] Vertical [2] Horizontal >')
-        if start == 1:
-            orientacao = 'vertical'
-        if start == 2:
-            orientacao = 'horizontal'
-    else:
-        orientacao = 'horizontal'
-    frota[navios] += define_posicoes(linha, coluna, orientacao, tamanho)
-    if posicao_valida(frota, linha, coluna, orientacao, tamanho) == False:
-        return('Insira as informações referentes ao navio ',navios,' que possui tamanho ',tamanho,'. ')
-        parametros(frota, tamanho, navios)
-        
-    
-def define_posicoes(linha, coluna, orientacao, tamanho):
+def preenche_frota(frota, nome_navio, linha, coluna, orientacao, tamanho):
     l = []
     for i in range(tamanho):
         if orientacao == 'vertical':
             l.append([(linha+i), coluna])
         if orientacao == 'horizontal':
             l.append([linha, (coluna+i)])
-    return l
+    if nome_navio in frota.keys():
+        frota[nome_navio] += [l]
+    else:
+        frota[nome_navio] = [l]
+    return frota
+#================================================================    
 def posicao_valida(frota, linha, coluna, orientacao, tamanho):
     validacao = []
     for i in range(tamanho):
@@ -50,31 +35,42 @@ def posicao_valida(frota, linha, coluna, orientacao, tamanho):
                     if itemvalido == [posicao[0],posicao[1]]:
                         return False
     return True
-#==================================
-for navios in frota:
-    tamanho = 0
-    
-    if navios == "submarino":
-        tamanho = 1
-        for i in range(4):
-            print('Insira as informações referentes ao navio ',navios,' que possui tamanho ',tamanho,'. ')
-            parametros(frota, tamanho, navios)
-    if navios == "contratorpedeiro":
-        tamanho = 2
-        for i in range(3):
-            print('Insira as informações referentes ao navio ',navios,' que possui tamanho ',tamanho,'. ')
-            parametros(frota, tamanho, navios)
-            posicao_valida(frota, linha, coluna, orientacao, tamanho)
-    if navios == "navio-tanque":
+#================================================================
+def pergunta(navio, tamanho):
+    return 'Insira as informações referentes ao navio {0} que possui tamanho {1}'.format(navio, tamanho)
+    linha = int(input('Linha: '))
+    coluna = int(input('Coluna: '))
+    if navio != "submarino":
+        orientacao = int(input('[1] Vertical [2] Horizontal >'))
+    else:
+        orientacao = 'Vertical'
+# se for invalido
+    if posicao_valida(frota, linha, coluna, orientacao, tamanho) == False:
+        return 'Esta posição nao esta valida'
+        return pergunta(navio, tamanho)
+# se for valida ja adiciona
+    else:
+        return preenche_frota(frota, nome_navio, linha, coluna, orientacao, tamanho)
+#================================================================
+
+tamanho = ''
+for navio in frota:
+    if navio == "porta-aviões":
+        tamanho = 4
+        print(pergunta(navio, tamanho))
+
+    if navio == "navio-tanque":
         tamanho = 3
         for i in range(2):
-            print('Insira as informações referentes ao navio ',navios,' que possui tamanho ',tamanho,'. ')
-            parametros(frota, tamanho, navios)
-    if navios == "porta-aviões":
-        tamanho = 4
-        print('Insira as informações referentes ao navio ',navios,' que possui tamanho ',tamanho,'. ')
-        
-        parametros(frota, tamanho, navios)
+            print(pergunta(navio, tamanho))
 
+    if navio == "contratorpedeiro":
+        tamanho = 2
+        for i in range(3):
+            print(pergunta(navio, tamanho))
+
+    if navio == "submarino":
+        tamanho = 1
+        for i in range(4):
+            print(pergunta(navio, tamanho))
 print(frota)
-

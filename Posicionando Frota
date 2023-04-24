@@ -1,0 +1,36 @@
+def parametros(frota):
+    linha = input('Linha: ')
+    coluna = input('Coluna: ')
+    if tamanho < 1 :
+        start = input('[1] Vertical [2] Horizontal >')
+        if start == 1:
+            orientacao = 'vertical'
+        if start == 2:
+            orientacao = 'horizontal'
+    frota[navios].append(define_posicoes(linha, coluna, orientacao, tamanho))
+
+
+for navios in frota:
+    tamanho = 0
+    orientacao = ''
+    if navios == "submarino":
+        tamanho == 1
+        for i in range(4):
+            print('Insira as informações referentes ao navio ',navios,' que possui tamanho ',tamanho,'. ')
+            parametros(frota)
+    if navios == "contratorpedeiro":
+        tamanho == 2
+        for i in range(3):
+            print('Insira as informações referentes ao navio ',navios,' que possui tamanho ',tamanho,'. ')
+            parametros(frota)
+    if navios == "navio-tanque":
+        tamanho == 3
+        for i in range(2):
+            print('Insira as informações referentes ao navio ',navios,' que possui tamanho ',tamanho,'. ')
+            parametros(frota)
+    if navios == "porta-aviões":
+        print('Insira as informações referentes ao navio ',navios,' que possui tamanho ',tamanho,'. ')
+        tamanho == 4
+        parametros(frota)
+
+print(frota)

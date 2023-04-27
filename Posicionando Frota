@@ -62,20 +62,20 @@ tamanho = ''
 for navio in frota:
     if navio == "porta-aviões":
         tamanho = 4
-        print(pergunta(navio, tamanho))
+        pergunta(navio, tamanho)
 
     if navio == "navio-tanque":
         tamanho = 3
         for i in range(2):
-            print(pergunta(navio, tamanho))
+            pergunta(navio, tamanho)
 
     if navio == "contratorpedeiro":
         tamanho = 2
         for i in range(3):
-            print(pergunta(navio, tamanho))
+            pergunta(navio, tamanho)
 
     if navio == "submarino":
         tamanho = 1
         for i in range(4):
-            print(pergunta(navio, tamanho))
+            pergunta(navio, tamanho)
 print(frota)

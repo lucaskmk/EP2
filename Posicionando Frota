@@ -4,17 +4,17 @@ frota = {
     "contratorpedeiro":[],
     "submarino": [],
 }
-def preenche_frota(frota, nome_navio, linha, coluna, orientacao, tamanho):
+def preenche_frota(frota, navio, linha, coluna, orientacao, tamanho):
     l = []
     for i in range(tamanho):
         if orientacao == 'vertical':
             l.append([(linha+i), coluna])
         if orientacao == 'horizontal':
             l.append([linha, (coluna+i)])
-    if nome_navio in frota.keys():
-        frota[nome_navio] += [l]
+    if navio in frota.keys():
+        frota[navio] += [l]
     else:
-        frota[nome_navio] = [l]
+        frota[navio] = [l]
     return frota
 #================================================================    
 def posicao_valida(frota, linha, coluna, orientacao, tamanho):
@@ -37,22 +37,27 @@ def posicao_valida(frota, linha, coluna, orientacao, tamanho):
     return True
 #================================================================
 def pergunta(navio, tamanho):
-    return 'Insira as informações referentes ao navio {0} que possui tamanho {1}'.format(navio, tamanho)
+    print('Insira as informações referentes ao navio {0} que possui tamanho {1}'.format(navio, tamanho))
     linha = int(input('Linha: '))
     coluna = int(input('Coluna: '))
-    if navio != "submarino":
-        orientacao = int(input('[1] Vertical [2] Horizontal >'))
+    if navio == "submarino":
+        orientacao = 'vertical'
     else:
-        orientacao = 'Vertical'
+        orientacao = int(input('[1] Vertical [2] Horizontal >'))
+    if orientacao == 1:
+        orientacao = 'vertical'
+    elif orientacao == 2:
+        orientacao = 'horizontal'
 # se for invalido
     if posicao_valida(frota, linha, coluna, orientacao, tamanho) == False:
-        return 'Esta posição nao esta valida'
+        print('Esta posição não está válida!')
         return pergunta(navio, tamanho)
 # se for valida ja adiciona
     else:
-        return preenche_frota(frota, nome_navio, linha, coluna, orientacao, tamanho)
+        preenche_frota(frota, navio, linha, coluna, orientacao, tamanho)
+        return ''
+        
 #================================================================
-
 tamanho = ''
 for navio in frota:
     if navio == "porta-aviões":

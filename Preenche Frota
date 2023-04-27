@@ -1,10 +1,5 @@
 def preenche_frota(frota, nome_navio, linha, coluna, orientacao, tamanho):
-    l = []
-    for i in range(tamanho):
-        if orientacao == 'vertical':
-            l.append([(linha+i), coluna])
-        if orientacao == 'horizontal':
-            l.append([linha, (coluna+i)])
+    l = define_posicoes(linha, coluna, orientacao, tamanho)
     if nome_navio in frota.keys():
         frota[nome_navio] += [l]
     else:

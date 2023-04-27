@@ -79,6 +79,13 @@ for navio in frota:
         for i in range(4):
             pergunta(navio, tamanho)
 print(frota)
+
+
+#==========================================
+
+
+
+
 def faz_jogada(tabuleiro, linha, coluna):
     xtotal = 0
     if tabuleiro[linha][coluna] == 1:
@@ -88,17 +95,18 @@ def faz_jogada(tabuleiro, linha, coluna):
         tabuleiro[linha][coluna] = '-'
     return tabuleiro
 def posiciona_frota(frota):
-    l = [[],[],[],[],[],[],[],[],[],[]]
+    tabuleiro = [[],[],[],[],[],[],[],[],[],[]]
     for i in range(10):
-        l[i] += [0 for x in range(10)]
+        tabuleiro[i] += [0 for x in range(10)]
     for barco, cordenadas_geral in frota.items():
         for cordenada_umbarco in cordenadas_geral:
             for posicao in cordenada_umbarco:
                 for T in range(10):
                     for j in range(10):
                         if [T,j] == [posicao[0],posicao[1]]:
-                            l[T][j] = 1
-    return l
+                            tabuleiro[T][j] = 1
+    return tabuleiro
+    
 def afundados(frota, tabuleiro):
     total_afundados = 0
     for barco, cordenadas_geral in frota.items():
@@ -133,8 +141,8 @@ frota_oponente = {
 }
 #==============================================================
 jogando = True
-posiciona_frota(frota_oponente)
-posiciona_frota(frota)
+tabuleiro_oponente = posiciona_frota(frota_oponente)
+tabuleiro_jogador = posiciona_frota(frota)
 lposições = []
 while jogando:
     def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):

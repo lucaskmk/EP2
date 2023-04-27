@@ -87,10 +87,8 @@ print(frota)
 
 
 def faz_jogada(tabuleiro, linha, coluna):
-    xtotal = 0
     if tabuleiro[linha][coluna] == 1:
         tabuleiro[linha][coluna] = 'X'
-        xtotal+=1
     if tabuleiro[linha][coluna] == 0:
         tabuleiro[linha][coluna] = '-'
     return tabuleiro
@@ -140,36 +138,39 @@ frota_oponente = {
     ]
 }
 #==============================================================
+def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
+    texto = ''
+    texto += '   0  1  2  3  4  5  6  7  8  9         0  1  2  3  4  5  6  7  8  9\n'
+    texto += '_______________________________      _______________________________\n'
+    for linha in range(len(tabuleiro_jogador)):
+        jogador_info = '  '.join([str(item) for item in tabuleiro_jogador[linha]])
+        oponente_info = '  '.join([info if str(info) in 'X-' else '0' for info in tabuleiro_oponente[linha]])
+        texto += f'{linha}| {jogador_info}|     {linha}| {oponente_info}|\n'
+    return texto
+#==========================================
 jogando = True
 tabuleiro_oponente = posiciona_frota(frota_oponente)
 tabuleiro_jogador = posiciona_frota(frota)
 lposições = []
 while jogando:
-    def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
-        texto = ''
-        texto += '   0  1  2  3  4  5  6  7  8  9         0  1  2  3  4  5  6  7  8  9\n'
-        texto += '_______________________________      _______________________________\n'
-        for linha in range(len(tabuleiro_jogador)):
-            jogador_info = '  '.join([str(item) for item in tabuleiro_jogador[linha]])
-            oponente_info = '  '.join([info if str(info) in 'X-' else '0' for info in tabuleiro_oponente[linha]])
-            texto += f'{linha}| {jogador_info}|     {linha}| {oponente_info}|\n'
-        return texto
-    #==============================
     monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente)
     linha = int(input('informe um número entre 0 e 9.'))
-    while linha not in range(10):
+    while linha  > 9 or linha < 0:
         print('Linha inválida!')
         linha = int(input('informe um número entre 0 e 9.'))
     coluna = int(input('informe um número entre 0 e 9.'))
-    while coluna not in range(10):
+    while coluna < 0 or coluna > 9:
         print('Coluna inválida!')
         coluna = int(input('informe um número entre 0 e 9.'))
     if [linha, coluna] not in lposições:
         lposições.append([linha, coluna])
-        faz_jogada(tabuleiro, linha, coluna)
+        faz_jogada(tabuleiro_oponente, linha, coluna)
     else:
         print('A posição linha LINHA e coluna COLUNA já foi informada anteriormente!')
-    faz_jogada(tabuleiro, linha, coluna)
+    xtotal = 0
+    for l in tabuleiro_oponente:
+        for x in l:
+            xtotal+=1
     if xtotal == 20:
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando == False

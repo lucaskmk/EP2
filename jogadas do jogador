@@ -78,7 +78,6 @@ for navio in frota:
         tamanho = 1
         for i in range(4):
             pergunta(navio, tamanho)
-print(frota)
 
 
 #==========================================
@@ -93,17 +92,17 @@ def faz_jogada(tabuleiro, linha, coluna):
         tabuleiro[linha][coluna] = '-'
     return tabuleiro
 def posiciona_frota(frota):
-    tabuleiro = [[],[],[],[],[],[],[],[],[],[]]
+    l = [[],[],[],[],[],[],[],[],[],[]]
     for i in range(10):
-        tabuleiro[i] += [0 for x in range(10)]
+        l[i] += [0 for x in range(10)]
     for barco, cordenadas_geral in frota.items():
         for cordenada_umbarco in cordenadas_geral:
             for posicao in cordenada_umbarco:
                 for T in range(10):
                     for j in range(10):
                         if [T,j] == [posicao[0],posicao[1]]:
-                            tabuleiro[T][j] = 1
-    return tabuleiro
+                            l[T][j] = 1
+    return l
     
 def afundados(frota, tabuleiro):
     total_afundados = 0
@@ -137,7 +136,7 @@ frota_oponente = {
         [[7, 6]]
     ]
 }
-#==============================================================
+#=====================================================
 def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
     texto = ''
     texto += '   0  1  2  3  4  5  6  7  8  9         0  1  2  3  4  5  6  7  8  9\n'
@@ -148,20 +147,36 @@ def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
         texto += f'{linha}| {jogador_info}|     {linha}| {oponente_info}|\n'
     return texto
 #==========================================
+numeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 jogando = True
 tabuleiro_oponente = posiciona_frota(frota_oponente)
 tabuleiro_jogador = posiciona_frota(frota)
 lposições = []
 while jogando:
-    monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente)
-    linha = int(input('informe um número entre 0 e 9.'))
-    while linha  > 9 or linha < 0:
-        print('Linha inválida!')
-        linha = int(input('informe um número entre 0 e 9.'))
-    coluna = int(input('informe um número entre 0 e 9.'))
-    while coluna < 0 or coluna > 9:
-        print('Coluna inválida!')
-        coluna = int(input('informe um número entre 0 e 9.'))
+    print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
+
+#=====================================================
+    linha = input('informe um número entre 0 e 9.')
+    if linha not in numeros:
+        space = False
+        while space:
+            print('Linha inválida!')
+            linha = input('informe um número entre 0 e 9.')
+            if linha in numeros:
+                space = True
+    linha = int(linha)
+
+    coluna = input('informe um número entre 0 e 9.')
+    if coluna not in numeros:
+        space = False
+        while space:
+            print('Linha inválida!')
+            coluna = input('informe um número entre 0 e 9.')
+            if coluna in numeros:
+                space = True
+    coluna = int(coluna)
+      
+#=====================================================
     if [linha, coluna] not in lposições:
         lposições.append([linha, coluna])
         faz_jogada(tabuleiro_oponente, linha, coluna)
@@ -174,4 +189,3 @@ while jogando:
     if xtotal == 20:
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando == False
-    

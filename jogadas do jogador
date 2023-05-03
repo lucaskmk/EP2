@@ -179,7 +179,7 @@ while jogando == True:
         print('A posição linha {0} e coluna {1} já foi informada anteriormente!'.format(linha, coluna))
 #========CHECAR SE AFUNDOU TODOS==================
     nafundados = afundados(frota_oponente, tabuleiro_oponente)
-    if nafundados == 20:
+    if nafundados == 10:
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando = False
 

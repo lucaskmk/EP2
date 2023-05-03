@@ -78,7 +78,6 @@ for navio in frota:
         tamanho = 1
         for i in range(4):
             pergunta(navio, tamanho)
-print(frota)
 
 
 #==========================================
@@ -146,6 +145,7 @@ def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
         jogador_info = '  '.join([str(item) for item in tabuleiro_jogador[linha]])
         oponente_info = '  '.join([info if str(info) in 'X-' else '0' for info in tabuleiro_oponente[linha]])
         texto += f'{linha}| {jogador_info}|     {linha}| {oponente_info}|\n'
+    print(texto)
     return texto
 #==========================================
 jogando = True
@@ -153,7 +153,8 @@ tabuleiro_oponente = posiciona_frota(frota_oponente)
 tabuleiro_jogador = posiciona_frota(frota)
 lposições = []
 nvalidos = ['0','1','2','3','4','5','6','7','8','9']
-while jogando:
+
+while jogando == True:
     monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente)
     linha = input('informe um número entre 0 e 9.')
     while linha not in nvalidos:
@@ -169,17 +170,17 @@ while jogando:
         if coluna in nvalidos:
             coluna = int(coluna)
             break
+    linha = int(linha)
+    coluna = int(coluna)  
     if [linha, coluna] not in lposições:
         lposições.append([linha, coluna])
         faz_jogada(tabuleiro_oponente, linha, coluna)
     else:
-        print('A posição linha LINHA e coluna COLUNA já foi informada anteriormente!')
+        print('A posição linha {0} e coluna {1} já foi informada anteriormente!'.format(linha, coluna))
 #========CHECAR SE AFUNDOU TODOS==================
-    xtotal = 0
-    for l in tabuleiro_oponente:
-        for x in l:
-            xtotal+=1
-    if xtotal == 20:
+    nafundados = afundados(frota_oponente, tabuleiro_oponente)
+    if nafundados == 10:
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando = False
+
 #==========================================

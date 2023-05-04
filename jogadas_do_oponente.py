@@ -187,7 +187,22 @@ while jogando == True:
     elif nafundados < 10:
         linha = rd.randint(0, 9)
         coluna = rd.randint(0, 9)
+        if [linha, coluna] not in atk_oponente:
+            atk_oponente.append([linha, coluna])
+            print('Seu oponente está atacando na linha {0} e coluna {1}'.format(linha, coluna))
+            faz_jogada(tabuleiro_jogador, linha, coluna)
+        else:
+            while True:
+                linha = rd.randint(0, 9)
+                coluna = rd.randint(0, 9)
+                if [linha, coluna] not in atk_oponente:
+                    atk_oponente.append([linha, coluna])
+                    print('Seu oponente está atacando na linha {0} e coluna {1}'.format(linha, coluna))
+                    faz_jogada(tabuleiro_jogador, linha, coluna)
+                    break
+        nselfafundados = afundados(frota, tabuleiro_jogador)
+        if nselfafundados >= 10:
+            print('Xi! O oponente derrubou toda a sua frota =(')
+            jogando = False
         
-        
-
 #==========================================

@@ -1,4 +1,5 @@
 import random as rd
+
 frota = {
     "porta-aviões":[],
     "navio-tanque":[],
@@ -153,6 +154,7 @@ jogando = True
 tabuleiro_oponente = posiciona_frota(frota_oponente)
 tabuleiro_jogador = posiciona_frota(frota)
 lposições = []
+atk_oponente = []
 nvalidos = ['0','1','2','3','4','5','6','7','8','9']
 
 while jogando == True:
@@ -180,14 +182,14 @@ while jogando == True:
         print('A posição linha {0} e coluna {1} já foi informada anteriormente!'.format(linha, coluna))
 #========CHECAR SE AFUNDOU TODOS==================
     nafundados = afundados(frota_oponente, tabuleiro_oponente)
-    atk_oponente = []
     if nafundados == 10:
         print('Parabéns! Você derrubou todos os navios do seu oponente!')
         jogando = False
     elif nafundados < 10:
         linha = rd.randint(0, 9)
         coluna = rd.randint(0, 9)
-        if [linha, coluna] not in atk_oponente:
+        dupla = [linha, coluna]
+        if dupla not in atk_oponente:
             atk_oponente.append([linha, coluna])
             print('Seu oponente está atacando na linha {0} e coluna {1}'.format(linha, coluna))
             faz_jogada(tabuleiro_jogador, linha, coluna)
@@ -195,8 +197,8 @@ while jogando == True:
             while True:
                 linha = rd.randint(0, 9)
                 coluna = rd.randint(0, 9)
-                if [linha, coluna] not in atk_oponente:
-                    atk_oponente.append([linha, coluna])
+                if dupla not in atk_oponente:
+                    atk_oponente.append(dupla)
                     print('Seu oponente está atacando na linha {0} e coluna {1}'.format(linha, coluna))
                     faz_jogada(tabuleiro_jogador, linha, coluna)
                     break
